@@ -1,0 +1,4 @@
+com\anatevka\dungeongen\GenerateCommand.class
+com\anatevka\dungeongen\SetRegionCommand.class
+com\anatevka\utilities\WorldUtil.class
+com\anatevka\dungeongen\Main.class

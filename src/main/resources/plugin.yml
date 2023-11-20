@@ -1,0 +1,7 @@
+name: DungeonGen
+version: '${project.version}'
+main: com.anatevka.dungeongen.Main
+api-version: '1.20'
+commands:
+  gen:
+  setRegion:
