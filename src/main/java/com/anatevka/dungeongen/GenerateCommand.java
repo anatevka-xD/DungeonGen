@@ -20,15 +20,22 @@ public class GenerateCommand implements CommandExecutor {
         Location currentLoc = startLoc.clone();
 
         //Basic variables. Should take from command args eventually for testing
-        int mazeSize = 11;     //X and Z dimensions of the maze
-        int tileDistance = 6; //Distance between tiles ends up being tileDistance - 1
-        int tileSize = 3;     //Dimensions of each tile end up being tileSize * 2 + 1
+        int mazeSize = 11;      //X and Z dimensions of the maze
+        int tileDistance = 6;   //Distance between tiles ends up being tileDistance - 1
+        int tileSize = 3;       //Dimensions of each tile end up being tileSize * 2 + 1
+        int tileHeight = 5;     //The tiles' height
 
-        ArrayList<Location> locs = new ArrayList<>();                                    //Holds all room locations
-        ArrayList<Location> explored = new ArrayList<>();                                //Holds locations of all tiles that have been walked
-        ArrayList<Location> finished = new ArrayList<>();                                //Holds locations of all walked tiles that have no unwalked neighbors
+        ArrayList<Location> locs = new ArrayList<>();       //Holds all room locations
+        ArrayList<Location> explored = new ArrayList<>();   //Holds locations of all tiles that have been walked
+        ArrayList<Location> finished = new ArrayList<>();   //Holds locations of all walked tiles that have no unwalked neighbors
 
-        List<Vector> directions = Arrays.asList( //A vector for each cardinal direction
+        List<Location> corners = Arrays.asList(
+                new Location(world,currentLoc.getX() + tileSize, currentLoc.getY() + tileHeight, currentLoc.getZ() + tileSize),            //Top corner of the 3d tile
+                new Location(world,currentLoc.getX() - tileSize, currentLoc.getY(), currentLoc.getZ() - tileSize),                            //Bottom corner
+                new Location(world,currentLoc.getX() + tileSize - 1, currentLoc.getY() + tileHeight, currentLoc.getZ() + tileSize - 1),    //Top inner corner
+                new Location(world,currentLoc.getX() - tileSize + 1, currentLoc.getY() + 1, currentLoc.getZ() - tileSize + 1));            //Bottom inner corner
+
+        List<Vector> directions = Arrays.asList(   //A vector for each cardinal direction
                 new Vector(1.0, 0.0, 0.0),
                 new Vector(0.0, 0.0, 1.0),
                 new Vector(-1.0, 0.0, 0.0),
@@ -39,14 +46,9 @@ public class GenerateCommand implements CommandExecutor {
             for (int j = 0; j < mazeSize; j++) {
                 locs.add(currentLoc.clone());
 
-                //Generate room
-                Location loc1 = new Location(world,currentLoc.getX() + tileSize, currentLoc.getY() + 5, currentLoc.getZ() + tileSize);
-                Location loc2 = new Location(world,currentLoc.getX() - tileSize, currentLoc.getY(), currentLoc.getZ() - tileSize);
-                WorldUtil.setRegion(world, loc1, loc2, Material.STONE);
-
-                Location loc3 = new Location(world,currentLoc.getX() + tileSize - 1, currentLoc.getY() + 5, currentLoc.getZ() + tileSize - 1);
-                Location loc4 = new Location(world,currentLoc.getX() - tileSize + 1, currentLoc.getY() + 1, currentLoc.getZ() - tileSize + 1);
-                WorldUtil.setRegion(world, loc3, loc4, Material.AIR);
+                //Generate tile
+                WorldUtil.setRegion(world, corners.get(0), corners.get(1), Material.STONE);
+                WorldUtil.setRegion(world, corners.get(2), corners.get(3), Material.AIR);
 
                 //Move to the next tile on the X axis
                 currentLoc.setX(currentLoc.getX() + tileDistance);
