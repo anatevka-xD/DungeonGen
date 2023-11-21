@@ -25,7 +25,7 @@ public class WorldUtil {
                     double y = y1 - j * Math.signum(yDiff);
                     double z = z1 - k * Math.signum(zDiff);
 
-                    world.getBlockAt(new Location(world, x, y, z)).setType(material);
+                    world.getBlockAt((int) x, (int) y, (int) z).setType(material);
                 }
             }
 
