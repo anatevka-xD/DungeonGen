@@ -74,7 +74,7 @@ public class GenerateCommand implements CommandExecutor {
                 }
             }
 
-            if (adjacent.size() > 0) {                 //If there are adjacent unwalked tiles, populate to random adjacent tile
+            if (adjacent.size() > 0) {   //If there are adjacent unwalked tiles, populate to random adjacent tile
                 Collections.shuffle(adjacent);
                 Location door1 = currentLoc.clone();
                 currentLoc = adjacent.get(0).clone();
@@ -90,7 +90,7 @@ public class GenerateCommand implements CommandExecutor {
                 door2.setZ(door2.getZ() - tileSize + 1);
 
                 WorldUtil.setRegion(world, door1, door2, Material.AIR);
-            } else {                                   //Otherwise, mark tile as finished and move on
+            } else {   //Otherwise, mark tile as finished and move on
                 explored.remove(explored.size() - 1);
                 finished.add(currentLoc.clone());
 
