@@ -19,6 +19,7 @@ public class SetRegionCommand implements CommandExecutor {
 
             double[] doubles = new double[6];
 
+            //Check that inputs are valid
             if (args.length >= 7) {
                 ItemStack block = new ItemStack(Material.STONE);
                 try {
@@ -39,6 +40,7 @@ public class SetRegionCommand implements CommandExecutor {
                     doubles[i] = num;
                 }
 
+                //Sets a region to a specified block, defaults to STONE
                 Location loc1 = new Location(Bukkit.getWorld("world"), doubles[0], doubles[1], doubles[2]);
                 Location loc2 = new Location(Bukkit.getWorld("world"), doubles[3], doubles[4], doubles[5]);
 
